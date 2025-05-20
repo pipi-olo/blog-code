@@ -5,19 +5,24 @@ ThisBuild / scalaVersion := "2.12.20"
 ThisBuild / organization := "com.pipiolo"
 
 lazy val versions = new {
-  val twitter = "24.2.0"
-
-  val cassandra     = "4.19.0"
-  val cassandraUnit = "4.3.1.0"
-
+  val twitter          = "24.2.0"
+  val cassandra        = "4.19.0"
   val logback          = "1.5.18"
   val scalaJava8Compat = "1.0.2"
-  val scalaTest        = "3.2.19"
+
+  val scalaTest     = "3.2.19"
+  val testContainer = "0.43.0"
 }
 
 lazy val commonSettings = Seq(
+  libraryDependencies ++= Seq("ch.qos.logback" % "logback-classic" % versions.logback),
   scalacOptions ++= Seq("-deprecation", "-feature", "-unchecked", "-encoding", "UTF-8"),
   publish / skip := true
+)
+
+// for testcontainers
+lazy val testContainerSettings = Defaults.itSettings ++ Seq(
+  IntegrationTest / fork := true
 )
 
 lazy val root = (project in file("."))
@@ -40,7 +45,9 @@ lazy val cassandra = project
 
 lazy val cassandraQuery = project
   .in(file("devops/cassandra/how-to-query-cassandra-using-datastax"))
+  .configs(IntegrationTest) // for testcontainers
   .settings(commonSettings *)
+  .settings(testContainerSettings *)
   .settings(
     name := "how-to-query-cassandra-using-datastax",
     libraryDependencies ++= Seq(
@@ -48,9 +55,8 @@ lazy val cassandraQuery = project
       "org.apache.cassandra"    % "java-driver-query-builder"      % versions.cassandra,
       "org.apache.cassandra"    % "java-driver-mapper-runtime"     % versions.cassandra,
       "org.scala-lang.modules" %% "scala-java8-compat"             % versions.scalaJava8Compat,
-      "org.scalatest"          %% "scalatest"                      % versions.scalaTest     % Test,
-      "org.cassandraunit"       % "cassandra-unit"                 % versions.cassandraUnit % Test,
-      "com.dimafeng"           %% "testcontainers-scala-scalatest" % "0.43.0"               % Test,
-      "com.dimafeng"           %% "testcontainers-scala-cassandra" % "0.43.0"               % Test
+      "org.scalatest"          %% "scalatest"                      % versions.scalaTest     % IntegrationTest,
+      "com.dimafeng"           %% "testcontainers-scala-scalatest" % versions.testContainer % IntegrationTest,
+      "com.dimafeng"           %% "testcontainers-scala-cassandra" % versions.testContainer % IntegrationTest
     )
   )

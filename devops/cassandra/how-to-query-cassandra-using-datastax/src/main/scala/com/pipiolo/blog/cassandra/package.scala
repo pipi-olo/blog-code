@@ -8,7 +8,7 @@
 package com.pipiolo.blog
 
 package object cassandra {
-  val KEYSPACE        = "pipiolo"
+  val KOREA           = "korea"
   val PERSON_V1_TABLE = "person_v1"
 
   val ID   = "id"
