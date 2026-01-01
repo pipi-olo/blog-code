@@ -20,7 +20,10 @@ import jakarta.ws.rs.core.Response
 class PostResource {
 
     @GET
-    fun listAll(@QueryParam("index") @DefaultValue("0") index: Int, @QueryParam("size") @DefaultValue("20") size: Int): List<Post>  {
+    fun listAll(
+        @QueryParam("index") @DefaultValue("0") index: Int,
+        @QueryParam("size") @DefaultValue("20") size: Int): List<Post>
+    {
         return Post.findAll().page(Page.of(index, size)).list()
     }
 
