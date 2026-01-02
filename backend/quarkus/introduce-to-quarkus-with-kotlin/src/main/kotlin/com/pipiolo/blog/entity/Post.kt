@@ -1,4 +1,4 @@
-package com.pipiolo.postservice.entity
+package com.pipiolo.blog.entity
 
 import io.quarkus.hibernate.orm.panache.kotlin.PanacheCompanion
 import io.quarkus.hibernate.orm.panache.kotlin.PanacheEntity

@@ -10,4 +10,4 @@ pluginManagement {
         id(quarkusPluginId) version quarkusPluginVersion
     }
 }
-rootProject.name = "quarkus-kotlin-postsservice"
+rootProject.name = "introduce-to-quarkus-with-kotlin"

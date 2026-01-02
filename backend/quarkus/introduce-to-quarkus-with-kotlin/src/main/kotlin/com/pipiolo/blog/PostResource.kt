@@ -1,16 +1,9 @@
-package com.pipiolo.postservice
+package com.pipiolo.blog
 
-import com.pipiolo.postservice.entity.Post
+import com.pipiolo.blog.entity.Post
 import io.quarkus.panache.common.Page
 import jakarta.transaction.Transactional
-import jakarta.ws.rs.Consumes
-import jakarta.ws.rs.DELETE
-import jakarta.ws.rs.DefaultValue
-import jakarta.ws.rs.GET
-import jakarta.ws.rs.POST
-import jakarta.ws.rs.Path
-import jakarta.ws.rs.Produces
-import jakarta.ws.rs.QueryParam
+import jakarta.ws.rs.*
 import jakarta.ws.rs.core.MediaType
 import jakarta.ws.rs.core.Response
 
@@ -22,8 +15,8 @@ class PostResource {
     @GET
     fun listAll(
         @QueryParam("index") @DefaultValue("0") index: Int,
-        @QueryParam("size") @DefaultValue("20") size: Int): List<Post>
-    {
+        @QueryParam("size") @DefaultValue("20") size: Int
+    ): List<Post> {
         return Post.findAll().page(Page.of(index, size)).list()
     }
 

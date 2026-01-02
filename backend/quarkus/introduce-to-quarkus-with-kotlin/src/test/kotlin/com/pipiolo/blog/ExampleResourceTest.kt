@@ -1,4 +1,4 @@
-package com.pipiolo.postservice
+package com.pipiolo.blog
 
 import io.quarkus.test.junit.QuarkusTest
 import io.restassured.RestAssured.given

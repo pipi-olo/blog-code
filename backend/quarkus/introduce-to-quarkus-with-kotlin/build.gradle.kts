@@ -28,7 +28,7 @@ dependencies {
     testImplementation("io.rest-assured:rest-assured")
 }
 
-group = "com.pipiolo.postservice"
+group = "com.pipiolo.blog"
 version = "1.0-SNAPSHOT"
 
 java {
